@@ -5,13 +5,13 @@ axios.defaults.baseURL="https:///api.themoviedb.org/3";
 
 
 interface MoviesHttpResponse{
-    movies: Movie[];
+    results: Movie[];
 }
 
 const myToken = import.meta.env.VITE_API_TOKEN;
 
 export const movieService = async (query: string): Promise<Movie[]> =>{
-      const response = await axios.get<MoviesHttpResponse>(`query`, {
+      const response = await axios.get<MoviesHttpResponse>(`/search/movie`, {
             params:{
                 query
             },
@@ -21,5 +21,5 @@ export const movieService = async (query: string): Promise<Movie[]> =>{
         });
       console.log(query);
 
-      return response.data.movies;
+      return response.data.results;
   };
