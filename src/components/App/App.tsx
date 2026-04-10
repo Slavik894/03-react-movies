@@ -6,31 +6,36 @@ import toast, { Toaster } from 'react-hot-toast';
 import { movieService } from "../../services/movieService";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import Loader from "../Loader/Loader";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 
 export default function App() {
 
   const [movies, setMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleSearch = async (query: string) =>{
     setIsLoading(true);
     try{
       const data = await movieService(query);
       if(data.length === 0){
+        setIsLoading(false);
         toast.error("No movies found for your request.");
         return;
       }
       setIsLoading(false);
       setMovies(data);
     }
-    catch(error){
-      toast.error(`${error}`);
+    catch {
+      setIsLoading(false);
+      setIsError(true);
     }
+
   }
 
   const onMovieSelect=(movie: Movie)=>{
-    console.log(movie.id);
+    
   }
 
 return(
@@ -38,9 +43,9 @@ return(
       <div><Toaster/></div>
     <SearchBar onSubmit={handleSearch} />
     {isLoading && <Loader />}
-    {movies.length>0 && (
-      <MovieGrid movies={movies} onSelect={onMovieSelect} />
-    )}
+    {movies.length>0 && !isLoading && (
+      <MovieGrid movies={movies} onSelect={onMovieSelect}/>)}
+    {isError && <ErrorMessage />}
     
     
   </div>
