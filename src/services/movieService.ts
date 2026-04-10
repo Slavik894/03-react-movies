@@ -19,7 +19,5 @@ export const movieService = async (query: string): Promise<Movie[]> =>{
             Authorization: `Bearer ${myToken}`
   }
         });
-      console.log(query);
-
       return response.data.results;
   };
