@@ -1,16 +1,16 @@
 import type { Movie } from "../types/movie"
 import axios from "axios";
-axios.defaults.baseURL="https:///api.themoviedb.org/3";
+axios.defaults.baseURL="https://api.themoviedb.org/3";
 
 
 
 interface MoviesHttpResponse{
     results: Movie[];
-}
+};
 
 const myToken = import.meta.env.VITE_API_TOKEN;
 
-export const movieService = async (query: string): Promise<Movie[]> =>{
+export const MovieService = async (query: string): Promise<Movie[]> =>{
       const response = await axios.get<MoviesHttpResponse>(`/search/movie`, {
             params:{
                 query
