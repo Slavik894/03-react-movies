@@ -57,7 +57,7 @@ return(
     {isLoading && <Loader />}
     {movies.length>0 && !isLoading && (
       <MovieGrid movies={movies} onSelect={onMovieSelect}/>)}
-    {isError && <ErrorMessage />}
+    {isError && (<ErrorMessage />)}
     {isModalOpen && selectedMovie && (<MovieModal movie={selectedMovie} onClose={closeModal}/>)}
     
     
